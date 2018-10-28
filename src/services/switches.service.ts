@@ -17,7 +17,7 @@ export default class SwitchesService {
     public on(name: string): Array<Switch> {
         const sw = this.switches.find(x => x.name === name);
         if(sw) {
-            sw.state = true;
+            sw.state = 1;
         }
 
         return this.switches;
@@ -26,7 +26,7 @@ export default class SwitchesService {
     public off(name: string): Array<Switch> {
         const sw = this.switches.find(x => x.name === name);
         if(sw) {
-            sw.state = false;
+            sw.state = 0;
         }
 
         return this.switches;
@@ -34,8 +34,8 @@ export default class SwitchesService {
 
     private initSwitchesObject(): Array<Switch> {
         return [
-            new Switch('tv', 6, false),
-            new Switch('tv1', 6, false),
+            new Switch('tv', 6, 0),
+            new Switch('tv1', 6, 0),
         ]
     }
 }
