@@ -11,7 +11,7 @@ export default class SwitchesService {
             return this.switches.filter(x => x.name === name);
         }
 
-        return this.switches;
+        return this.switches.map(this.mapSwitch);
     }
 
     public on(name: string): Array<Switch> {
@@ -20,7 +20,7 @@ export default class SwitchesService {
             sw.state = 1;
         }
 
-        return this.switches;
+        return this.switches.map(this.mapSwitch);
     }
 
     public off(name: string): Array<Switch> {
@@ -29,7 +29,7 @@ export default class SwitchesService {
             sw.state = 0;
         }
 
-        return this.switches;
+        return this.switches.map(this.mapSwitch);
     }
 
     private initSwitchesObject(): Array<Switch> {
@@ -37,5 +37,12 @@ export default class SwitchesService {
             new Switch('tv', 6, 0),
             new Switch('tv1', 6, 0),
         ]
+    }
+
+    private mapSwitch(sw: Switch): any {
+        return {
+            name: sw.name,
+            state: sw.state
+        };
     }
 }

@@ -3,9 +3,9 @@ import { Gpio } from "onoff";
 export class Switch {
     name: string;
 
-    get gpio(): number {
-        return this.gp.gpio;
-    }
+    /* get gpio(): number {
+        return this.gp.readSync()
+    } */
     
     set state(value: number) {
         this.gp.write(value, () => {});
