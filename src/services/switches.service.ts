@@ -8,7 +8,7 @@ export default class SwitchesService {
 
     public getState(name?: string): Array<Switch> {
         if(name) {
-            return this.switches.filter(x => x.name === name);
+            return this.switches.filter(x => x.name === name).map(this.mapSwitch);;
         }
 
         return this.switches.map(this.mapSwitch);
