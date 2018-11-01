@@ -34,8 +34,8 @@ export default class SwitchesService {
 
     private initSwitchesObject(): Array<Switch> {
         return [
-            new Switch('TV', 'tv', 20, 0),
-            new Switch('Speaker', 'speaker', 21, 0),
+            new Switch('TV', 'tv', 20, 1),
+            new Switch('Speaker', 'speaker', 21, 1),
         ];
     }
 
