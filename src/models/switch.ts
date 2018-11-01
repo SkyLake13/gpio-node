@@ -12,7 +12,7 @@ export class Switch {
         return this.gp.readSync();
     }
 
-    private gp: Gpio
+    protected gp: Gpio
 
     constructor(name: string, url: string, gpio: number, state: number) {
         this.name = name;

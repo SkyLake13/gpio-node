@@ -1,4 +1,5 @@
 import { Switch } from "../models/switch";
+import { RelaySwitch } from "../models/relay-switch";
 
 export default class SwitchesService {
     public switches: Array<Switch>;
@@ -17,7 +18,7 @@ export default class SwitchesService {
     public on(name: string): Array<Switch> {
         const sw = this.switches.find(x => x.url === name);
         if(sw) {
-            sw.state = 0;
+            sw.state = 1;
         }
 
         return this.switches.map(this.mapSwitch);
@@ -26,7 +27,7 @@ export default class SwitchesService {
     public off(name: string): Array<Switch> {
         const sw = this.switches.find(x => x.url === name);
         if(sw) {
-            sw.state = 1;
+            sw.state = 0;
         }
 
         return this.switches.map(this.mapSwitch);
@@ -34,8 +35,10 @@ export default class SwitchesService {
 
     private initSwitchesObject(): Array<Switch> {
         return [
-            new Switch('TV', 'tv', 20, 1),
-            new Switch('Speaker', 'speaker', 21, 1),
+            new RelaySwitch('TV', 'tv', 20, 0),
+            new RelaySwitch('Speaker', 'speaker', 21, 0),
+            new Switch('GPIO 5', 'gpio5', 5, 0),
+            new Switch('GPIO 6', 'gpio6', 6, 0),
         ];
     }
 
