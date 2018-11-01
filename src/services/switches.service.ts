@@ -17,7 +17,7 @@ export default class SwitchesService {
     public on(name: string): Array<Switch> {
         const sw = this.switches.find(x => x.url === name);
         if(sw) {
-            sw.state = 1;
+            sw.state = 0;
         }
 
         return this.switches.map(this.mapSwitch);
@@ -26,7 +26,7 @@ export default class SwitchesService {
     public off(name: string): Array<Switch> {
         const sw = this.switches.find(x => x.url === name);
         if(sw) {
-            sw.state = 0;
+            sw.state = 1;
         }
 
         return this.switches.map(this.mapSwitch);
