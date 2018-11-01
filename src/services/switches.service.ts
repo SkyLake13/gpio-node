@@ -34,9 +34,9 @@ export default class SwitchesService {
 
     private initSwitchesObject(): Array<Switch> {
         return [
-            new Switch('tv', 6, 0),
-            new Switch('tv1', 6, 0),
-        ]
+            new Switch('tv', 20, 0),
+            new Switch('tv1', 21, 0),
+        ];
     }
 
     private mapSwitch(sw: Switch): any {
