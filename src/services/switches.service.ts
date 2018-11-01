@@ -42,6 +42,7 @@ export default class SwitchesService {
     private mapSwitch(sw: Switch): any {
         return {
             name: sw.name,
+            url: sw.url,
             state: sw.state
         };
     }
