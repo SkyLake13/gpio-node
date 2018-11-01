@@ -4,7 +4,7 @@ export class Switch {
     name: string;
     
     set state(value: number) {
-        this.gp.write(value, () => {});
+         this.gp.writeSync(value);
     }
 
     get state(): number {
