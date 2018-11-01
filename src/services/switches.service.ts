@@ -8,14 +8,14 @@ export default class SwitchesService {
 
     public getState(name?: string): Array<Switch> {
         if(name) {
-            return this.switches.filter(x => x.name === name).map(this.mapSwitch);;
+            return this.switches.filter(x => x.url === name).map(this.mapSwitch);;
         }
 
         return this.switches.map(this.mapSwitch);
     }
 
     public on(name: string): Array<Switch> {
-        const sw = this.switches.find(x => x.name === name);
+        const sw = this.switches.find(x => x.url === name);
         if(sw) {
             sw.state = 1;
         }
@@ -24,7 +24,7 @@ export default class SwitchesService {
     }
 
     public off(name: string): Array<Switch> {
-        const sw = this.switches.find(x => x.name === name);
+        const sw = this.switches.find(x => x.url === name);
         if(sw) {
             sw.state = 0;
         }
