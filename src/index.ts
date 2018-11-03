@@ -1,6 +1,7 @@
 import * as app from './app';
 import * as express from 'express';
 import { createServer } from 'http';
+import { Server } from "socket.io";
 
 const server = createServer(app.expressApp)
 

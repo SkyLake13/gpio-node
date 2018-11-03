@@ -1,7 +1,9 @@
+import { Server } from "socket.io";
+
 class SocketApp {
-    private io: SocketIO.Server;
+    private io: Server;
 
-    constructor(socketServer: SocketIO.Server) {
-
+    constructor(socketServer: Server) {
+        this.io = socketServer;
     }
 }
