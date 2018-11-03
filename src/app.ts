@@ -35,4 +35,4 @@ class App {
     }
 }
 
-export const app = new App().express;
+export const expressApp = new App().express;
