@@ -3,15 +3,14 @@ import { Switch } from "./switch";
 export class RelaySwitch extends Switch {
 
     set state(value: number) {
-        /* if(value === 1)
-            this.gp.writeSync(0);
+        if(value === 1)
+            super.state = 0;
         else
-            this.gp.writeSync(1); */
+            super.state = 1;
     }
 
     get state(): number {
-        // return this.gp.readSync() === 1 ? 0 : 1;
-        return 0;
+        return super.state;
     }
 
     constructor(name: string, url: string, gpio: number, state: number) {

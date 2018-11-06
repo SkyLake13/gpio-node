@@ -6,14 +6,12 @@ import * as cors from 'cors';
 import SwitchesService from "./services/switches.service";
 import SwitchesController from "./controllers/switches.controller";
 
-class App {
+export default class App {
     public express: express.Application;
-    private switchesService: SwitchesService;
 
-    constructor() {
+    constructor(private switchesService: SwitchesService) {
         this.express = express();
         this.middleWares();
-        this.serviceFactory();
         this.routes();
     }
 
@@ -29,10 +27,4 @@ class App {
     private routes(): void {
         this.express.use('/', new SwitchesController(this.switchesService).router);
     }
-
-    private serviceFactory() {
-        this.switchesService = new SwitchesService();
-    }
 }
-
-export const expressApp = new App().express;
