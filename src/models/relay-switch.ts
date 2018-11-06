@@ -10,7 +10,10 @@ export class RelaySwitch extends Switch {
     }
 
     get state(): number {
-        return super.state;
+        if(super.state === 1)
+            return 0;
+        else
+            return 1;
     }
 
     constructor(name: string, url: string, gpio: number, state: number) {
