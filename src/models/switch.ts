@@ -22,7 +22,7 @@ export class Switch {
     private _tempTimeout: number;
     set timeout(value: number) {
         this._timeout = value;
-        this._tempTimeout = JSON.parse(JSON.stringify(this._timeout));
+        this._tempTimeout = this._timeout;
     }
     get timeout(): number {
         return this._timeout;
