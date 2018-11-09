@@ -24,8 +24,6 @@ export default class SocketApp {
     private switchOn(name: string) {
         const switches = this.switchesService.on(name);
         this.sendState(switches);
-
-        setTimeout(() => this.switchOff('speaker'), 5000);
     }
 
     private switchOff(name: string) {
