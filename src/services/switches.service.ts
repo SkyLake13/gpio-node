@@ -3,7 +3,7 @@ import { RelaySwitch } from "../models/relay-switch";
 
 export default class SwitchesService {
     public switches: Array<Switch>;
-    private readonly timeout = 10 * 1000;
+    private readonly timeout = 1000 * 60 * 60 * 2;
 
     constructor() {
         this.switches = this.initSwitchesObject();
