@@ -18,17 +18,28 @@ export class Switch {
         return this.gp.readSync();
     }
 
+    private _timeout: number;
+    private _tempTimeout: number;
+    set timeout(value: number) {
+        this._timeout = value;
+        this._tempTimeout = JSON.parse(JSON.stringify(this._timeout));
+    }
+    get timeout(): number {
+        return this._timeout;
+    }
+
     constructor(public name: string, public url: string,
-        gpio: number, state: number, public timeout?: number) {
+        gpio: number, state: number, timeout?: number) {
         this.gp = new Gpio(gpio, "out");
         this.state = state;
+        this.timeout = timeout;
     }
 
     public on() {
         this.state = 1;
 
         if (this.timeout) {
-            this.timeout = 10000;
+            this.timeout = this._tempTimeout;
             this.switchTimeout(this.timeout);
         }
 
