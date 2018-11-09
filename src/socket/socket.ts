@@ -32,8 +32,10 @@ export default class SocketApp {
     }
 
     private getSendState() {
-        const switches = this.switchesService.getState();
-        this.sendState(switches);
+        setInterval(() => {
+            const switches = this.switchesService.getState();
+            this.sendState(switches);
+        }, 1000)
     }
 
     private sendState(switches: Array<Switch>) {

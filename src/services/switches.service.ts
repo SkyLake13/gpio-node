@@ -3,6 +3,8 @@ import { RelaySwitch } from "../models/relay-switch";
 
 export default class SwitchesService {
     public switches: Array<Switch>;
+    private readonly timeout = 10 * 1000;
+
     constructor() {
         this.switches = this.initSwitchesObject();
     }
@@ -18,7 +20,7 @@ export default class SwitchesService {
     public on(name: string): Array<Switch> {
         const sw = this.switches.find(x => x.url === name);
         if(sw) {
-            sw.state = 1;
+            sw.on();
         }
 
         return this.switches.map(this.mapSwitch);
@@ -27,7 +29,7 @@ export default class SwitchesService {
     public off(name: string): Array<Switch> {
         const sw = this.switches.find(x => x.url === name);
         if(sw) {
-            sw.state = 0;
+            sw.off();
         }
 
         return this.switches.map(this.mapSwitch);
@@ -35,8 +37,8 @@ export default class SwitchesService {
 
     private initSwitchesObject(): Array<Switch> {
         return [
-            new RelaySwitch('TV', 'tv', 20, 0),
-            new RelaySwitch('Speaker', 'speaker', 21, 0),
+            new RelaySwitch('TV', 'tv', 20, 0, this.timeout),
+            new RelaySwitch('Speaker', 'speaker', 21, 0, this.timeout),
             new Switch('GPIO 5', 'gpio5', 5, 0),
             new Switch('GPIO 6', 'gpio6', 6, 0),
         ];
@@ -46,7 +48,8 @@ export default class SwitchesService {
         return {
             name: sw.name,
             url: sw.url,
-            state: sw.state
+            state: sw.state,
+            timeout: sw.timeout
         };
     }
 }

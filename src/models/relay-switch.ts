@@ -16,7 +16,7 @@ export class RelaySwitch extends Switch {
             return 1;
     }
 
-    constructor(name: string, url: string, gpio: number, state: number) {
-        super(name, url, gpio, state);
+    constructor(name: string, url: string, gpio: number, state: number, timeout?: number) {
+        super(name, url, gpio, state, timeout);
     }
 }
