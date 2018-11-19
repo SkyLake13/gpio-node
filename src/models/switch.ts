@@ -57,7 +57,7 @@ export class Switch {
                     this.off();
                 }
             } else {
-                this.timeout = this.timeout - interval;
+                this._timeout = this.timeout - interval;
             }
         }, interval);
     }
