@@ -22,13 +22,13 @@ export default class SocketApp {
     }
 
     private switchOn(name: string) {
-        const switches = this.switchesService.on(name);
-        this.sendState(switches);
+        this.switchesService.on(name);
+        this.getSendState();
     }
 
     private switchOff(name: string) {
-        const switches = this.switchesService.off(name);
-        this.sendState(switches);
+        this.switchesService.off(name);
+        this.getSendState();
     }
 
     private getSendState() {
