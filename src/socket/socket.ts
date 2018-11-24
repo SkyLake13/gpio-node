@@ -1,12 +1,13 @@
 import { Server } from "http";
 import * as socketIo from 'socket.io';
 import SwitchesService from "../services/switches.service";
-import { Switch } from "../models/switch";
+import BaseSwitchesService from "../services/base-switches.service";
+import ISwitch from "../models/ISwitch";
 
 export default class SocketApp {
     private io: SocketIO.Server;
 
-    constructor(server: Server, private switchesService: SwitchesService) {
+    constructor(server: Server, private switchesService: BaseSwitchesService) {
         this.io = socketIo(server);
         this.io.on('connection', this.onClientConnected.bind(this));
     }
@@ -21,22 +22,20 @@ export default class SocketApp {
         socket.on('disconnect', this.onDisconnect.bind(this));
     }
 
-    private switchOn(name: string) {
-        this.switchesService.on(name);
-        this.getSendState();
+    private async switchOn(name: string) {
+        await this.switchesService.on(name);
     }
 
-    private switchOff(name: string) {
-        this.switchesService.off(name);
-        this.getSendState();
+    private async switchOff(name: string) {
+        await this.switchesService.off(name);
     }
 
-    private getSendState() {
-        const switches = this.switchesService.getState();
+    private async getSendState() {
+        const switches = await this.switchesService.getState();
         this.sendState(switches);
     }
 
-    private sendState(switches: Array<Switch>) {
+    private sendState(switches: Array<ISwitch>) {
         this.io.emit('state', switches);
     }
 

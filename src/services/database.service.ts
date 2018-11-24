@@ -1,42 +1,40 @@
-import { Connection, r, RConnectionOptions, RTable, RCursor, Changes } from "rethinkdb-ts";
+import { Connection, r, RConnectionOptions, RTable, RCursor, Changes, WriteResult } from "rethinkdb-ts";
+import { Switch } from "../models/switch";
 
-export class DatabaseService {
-    public connection: Connection;
+export class DatabaseService<T> {
+    private connection: Connection;
+    private tableName: string = 'switches';
 
     constructor(private connectionOptions: RConnectionOptions) {
-
+        
     }
 
     public async connect() {
         this.connection = await r.connect(this.connectionOptions);
     }
 
-    public changeFeeds<T>(tableName: string): Promise<RCursor<Changes<T>>> | Promise<never> {
-        if(this.connection) {
-            return r.table<T>(tableName).changes().run(this.connection);
-        }
-        
-        throw Promise.reject('Call connect method to initialize connection first');
+    public changeFeeds(): Promise<RCursor<Changes<T>>> {
+        return r.table<T>(this.tableName).changes().run(this.connection);
     }
 
-    public get<T>(tableName: string): Promise<T[]> {
-        if(this.connection) {
-            return r.table<T>(tableName).run(this.connection);
+    public async get(id?: string): Promise<T[]> {
+        if(id) {
+            const filter = r.row('id').eq(id);
+            return await r.table<T>(this.tableName).filter(filter as any).run(this.connection);
         }
-        
-        throw Promise.reject('Call connect method to initialize connection first');
+        return r.table<T>(this.tableName).run(this.connection);
     }
 
-    public async update<T>(tableName: string, id: string, data: T): Promise<T[]> {
+    public async update(id: string, data: T): Promise<WriteResult<T>> {
         const filter = r.row('id').eq(id);
-        return await this.updateByFilter<T>(tableName, filter, data);
+        return await this.updateByFilter(filter, data);
     }
 
-    public async updateByFilter<T>(tableName: string, filter: any, data: T): Promise<T[]> {
-        if(this.connection) {
-            return await r.table<T>(tableName).filter(filter).run(this.connection);
-        }
-        
-        throw Promise.reject('Call connect method to initialize connection first');
+    public async updateByFilter(filter: any, data: T): Promise<WriteResult<T>> {
+        return await r.table<T>(this.tableName).filter(filter).update(data).run(this.connection);
+    }
+
+    public async add(data: T[]): Promise<WriteResult<T>> {
+        return await r.table<T>(this.tableName).insert(data).run(this.connection);
     }
 }

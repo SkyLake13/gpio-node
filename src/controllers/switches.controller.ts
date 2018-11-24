@@ -1,18 +1,19 @@
 import SwitchesService from "../services/switches.service";
 import { BaseController } from "./base.controller";
 import { Request, Response } from "express";
+import BaseSwitchesService from "../services/base-switches.service";
 
 export default class SwitchesController extends BaseController {
-    constructor(private switchesService: SwitchesService) {
+    constructor(private switchesService: BaseSwitchesService) {
         super('Swithces controller listening here');
         this.setUp();
     }
 
     protected setUp() {
         this.router.get('/', this.getSwitches.bind(this));
-        this.router.get('/:name', this.getSwitch.bind(this));
-        this.router.get('/:name/1', this.on.bind(this));
-        this.router.get('/:name/0', this.off.bind(this));
+        this.router.get('/:id', this.getSwitch.bind(this));
+        this.router.get('/:id/1', this.on.bind(this));
+        this.router.get('/:id/0', this.off.bind(this));
     }
 
     private getSwitches(req: Request, res: Response) {
@@ -22,23 +23,24 @@ export default class SwitchesController extends BaseController {
     }
 
     private getSwitch(req: Request, res: Response) {
-        const name = req.params.name;
-        const items = this.switchesService.getState(name);
+        const id = req.params.id;
+        const items = this.switchesService.getState(id);
 
         res.send(items);
     }
 
-    private on(req: Request, res: Response) {
-        const name = req.params.name;
-        const items = this.switchesService.on(name);
+    private async on(req: Request, res: Response) {
+        const id = req.params.id;
+        await this.switchesService.on(id);
 
-        res.send(items);
+        
     }
 
-    private off(req: Request, res: Response) {
-        const name = req.params.name;
-        const items = this.switchesService.off(name);
+    private async off(req: Request, res: Response) {
+        const id = req.params.id;
+        await this.switchesService.off(id);
 
+        const items = await this.switchesService.getState();
         res.send(items);
     }
 }
