@@ -10,12 +10,6 @@ export default class SocketApp {
     constructor(server: Server, private switchesService: BaseSwitchesService) {
         this.io = socketIo(server);
         this.io.on('connection', this.onClientConnected.bind(this));
-
-        this.switchesService.changes().then(sws => {
-            console.log('changes', sws);
-
-            this.io.emit('state', sws);
-        });
     }
 
     private onClientConnected(socket: socketIo.Socket) {
@@ -26,6 +20,12 @@ export default class SocketApp {
         socket.on('state', this.getSendState.bind(this));
 
         socket.on('disconnect', this.onDisconnect.bind(this));
+
+        this.switchesService.changes().then(sws => {
+            console.log('changes', sws);
+            if(sws.length > 0)
+            this.sendState(sws);
+        });
     }
 
     private async switchOn(id: string) {
