@@ -10,6 +10,12 @@ export default class SocketApp {
     constructor(server: Server, private switchesService: BaseSwitchesService) {
         this.io = socketIo(server);
         this.io.on('connection', this.onClientConnected.bind(this));
+
+        this.switchesService.changes().then(sws => {
+            console.log('changes', sws);
+
+            this.io.emit('state', sws);
+        });
     }
 
     private onClientConnected(socket: socketIo.Socket) {
