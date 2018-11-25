@@ -18,7 +18,7 @@ const connection = async() => {
 
 const conn = connection();
 
-const dbService = new DatabaseService<ISwitch>(conn);
+const dbService = new DatabaseService<ISwitch>(conn, 'test', 'switches');
 
 const switchesService = new SwitchesService(dbService);
 const expressApp = new App(switchesService)
@@ -27,6 +27,6 @@ const server = createServer(expressApp.express)
 
 const s = new SocketApp(server, switchesService);
 
-server.listen('4300', () => {
+server.listen('4300', async() => {
     console.log('Listening at 4300');
 });

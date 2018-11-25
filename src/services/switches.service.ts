@@ -10,7 +10,7 @@ export default class SwitchesService extends BaseSwitchesService {
     constructor(private dbService: DatabaseService<ISwitch>) {
         super();
 
-        this.dbService.connect(this.dbName, this.tableName).then(() => {
+        this.dbService.connect().then(() => {
             this.dbService.get().then(sws => {
                 console.log('switches ', sws);
                 if(sws && sws.length > 0) {

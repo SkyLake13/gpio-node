@@ -3,29 +3,24 @@ import { Connection, r, RConnectionOptions, RTable,
 
 export class DatabaseService<T> {
     private connection: Connection;
-    public dbName: string;
-    public tableName: string;
 
-    constructor(private connectionOptions: RConnectionOptions) {
+    constructor(private connectionOptions: RConnectionOptions,
+        public dbName: string, public tableName: string) {
         
     }
 
-    public async connect(dbName, tableName) {
+    public async connect() {
         this.connection = await r.connect(this.connectionOptions);
-        this.setDbAndTable(dbName, tableName);
-
+        
         await this.createDb();
         await this.createTable();
     }
 
-    private setDbAndTable(dbName, tableName) {
-        this.dbName = dbName;
-        this.tableName = tableName;
-    }
-
     private async createDb() {
         const dbs = await r.dbList().run(this.connection);
-
+        console.log('dbs ', dbs);
+        console.log('current db', this.dbName);
+        
         if(dbs.findIndex(x => x === this.dbName) === -1) {
             await r.dbCreate(this.dbName).run(this.connection);
         }
