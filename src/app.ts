@@ -5,11 +5,12 @@ import * as cors from 'cors';
 // import { authorization } from "./auth";
 import SwitchesService from "./services/switches.service";
 import SwitchesController from "./controllers/switches.controller";
+import BaseSwitchesService from "./services/base-switches.service";
 
 export default class App {
     public express: express.Application;
 
-    constructor(private switchesService: SwitchesService) {
+    constructor(private switchesService: BaseSwitchesService) {
         this.express = express();
         this.middleWares();
         this.routes();

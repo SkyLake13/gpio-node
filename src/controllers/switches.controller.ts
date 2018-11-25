@@ -24,6 +24,7 @@ export default class SwitchesController extends BaseController {
 
     private getSwitch(req: Request, res: Response) {
         const id = req.params.id;
+        console.log('reached', id);
         const items = this.switchesService.getState(id);
 
         res.send(items);

@@ -1,3 +1,4 @@
+import { SwitchType } from "./ISwitch";
 import { Switch } from "./switch";
 
 export class RelaySwitch extends Switch {
@@ -16,7 +17,8 @@ export class RelaySwitch extends Switch {
             return 1;
     }
 
-    constructor(name: string, url: string, gpio: number, state: number) {
-        super(name, url, gpio, state);
-    }
+    constructor(name: string, type: SwitchType, gpio: number,
+        timeout: number, state: number) {
+            super(name, type, gpio, timeout, state);
+   }
 }

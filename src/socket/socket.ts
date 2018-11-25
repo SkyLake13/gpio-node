@@ -22,12 +22,12 @@ export default class SocketApp {
         socket.on('disconnect', this.onDisconnect.bind(this));
     }
 
-    private async switchOn(name: string) {
-        await this.switchesService.on(name);
+    private async switchOn(id: string) {
+        await this.switchesService.on(id);
     }
 
-    private async switchOff(name: string) {
-        await this.switchesService.off(name);
+    private async switchOff(id: string) {
+        await this.switchesService.off(id);
     }
 
     private async getSendState() {
