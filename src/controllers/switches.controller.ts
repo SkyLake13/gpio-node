@@ -22,10 +22,10 @@ export default class SwitchesController extends BaseController {
         res.send(items);
     }
 
-    private getSwitch(req: Request, res: Response) {
+    private async getSwitch(req: Request, res: Response) {
         const id = req.params.id;
         console.log('reached', id);
-        const items = this.switchesService.getState(id);
+        const items = await this.switchesService.getState(id);
 
         res.send(items);
     }
@@ -34,7 +34,8 @@ export default class SwitchesController extends BaseController {
         const id = req.params.id;
         await this.switchesService.on(id);
 
-        
+        const items = await this.switchesService.getState();
+        res.send(items);
     }
 
     private async off(req: Request, res: Response) {
