@@ -1,0 +1,5 @@
+<div>
+  <div>{{switch.name}}</div>
+  <div (click)="toggle()" [class.active]="switch.state === 0">Off</div>
+  <div (click)="toggle()" [class.active]="switch.state !== 0">On</div>
+</div>

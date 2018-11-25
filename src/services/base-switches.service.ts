@@ -10,8 +10,8 @@ export default abstract class BaseSwitchesService {
 
     protected initSwitchesObject(): Array<ISwitch> {
         return [
-            new RelaySwitch('TV', SwitchType.Relay, 20, 0, 0),
-            new RelaySwitch('Speaker', SwitchType.Relay, 20, 0, 0),
+            new Switch('TV', SwitchType.Relay, 20, 0, 0),
+            new Switch('Speaker', SwitchType.Relay, 20, 0, 0),
             new Switch('GPIO 5', SwitchType.Normal, 5, 0, 0),
         ];
     }
