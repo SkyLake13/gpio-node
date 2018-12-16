@@ -22,7 +22,6 @@ export default class SocketApp {
         socket.on('disconnect', this.onDisconnect.bind(this));
 
         this.switchesService.changes().then(sws => {
-            console.log('changes', sws);
             if(sws.length > 0)
             this.sendState(sws);
         });

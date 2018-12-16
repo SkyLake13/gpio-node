@@ -25,9 +25,10 @@ export default class SwitchesService extends BaseSwitchesService {
         });
     }
 
-    public async changes() {
+    public changes() {
         return this.dbService.changeFeeds().then((changes: RCursor<Changes<ISwitch>>) => {
             const switches = [];
+            console.log('chanes', changes);
             changes.each((err, row: ISwitch) => {
                 if(err) throw err;
 

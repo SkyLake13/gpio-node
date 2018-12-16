@@ -35,6 +35,9 @@ export class DatabaseService<T> {
     }
 
     public changeFeeds(): Promise<RCursor<Changes<T>>> {
+        r.db(this.dbName).table<T>(this.tableName).changes().run(this.connection).then((change) => {
+            console.log('chnages inside', change);
+        })
         return r.db(this.dbName).table<T>(this.tableName).changes().run(this.connection);
     }
 
