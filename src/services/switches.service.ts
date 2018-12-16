@@ -1,10 +1,14 @@
 import { Switch } from "../models/switch";
 import { RelaySwitch } from "../models/relay-switch";
+import { SwitchesIRService } from "./switches-ir.service";
 
 export default class SwitchesService {
     public switches: Array<Switch>;
+    private irService: SwitchesIRService;
+
     constructor() {
         this.switches = this.initSwitchesObject();
+        this.irService = new SwitchesIRService('http://192.168.0.100');
     }
 
     public getState(name?: string): Array<Switch> {
@@ -19,6 +23,7 @@ export default class SwitchesService {
         const sw = this.switches.find(x => x.url === name);
         if(sw) {
             sw.state = 1;
+            this.irService.togglePower(name);
         }
 
         return this.switches.map(this.mapSwitch);
