@@ -10,7 +10,7 @@ export class SwitchesIRService {
 
         setTimeout(async() => {
             const resp = await axios.get(url);
-        }, 1000);
+        }, 500);
         
     }
 }
